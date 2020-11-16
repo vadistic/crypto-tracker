@@ -1,10 +1,13 @@
 import { call, put } from 'redux-saga/effects'
 
 import { api, AvailibleCoinListResponse, ApiResult } from '../../../api'
+import { callApiWithRetry } from '../../utils'
 import { trackerSlice } from '../tracker'
 
 export function* fetchTrackerOptions() {
-  const response: ApiResult<AvailibleCoinListResponse> = yield call(() => api.availibleCoinList())
+  const response: ApiResult<AvailibleCoinListResponse> = yield callApiWithRetry(() =>
+    api.availibleCoinList(),
+  )
 
   if (response.error) {
     yield call(fetchTrackerOptionsErr, response.error)

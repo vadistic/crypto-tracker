@@ -10,13 +10,11 @@ export const isWrappedData = <T>(
 
 export interface ApiResultOk<T> {
   error: undefined
-  status: 200
   value: T
 }
 
 export interface ApiResultErr {
   error: string
-  status: number
   value: undefined
 }
 
@@ -27,7 +25,6 @@ export const toApiResult = <T>(res: AxiosResponse<T | ErrorResponse>): ApiResult
   if (res.status !== 200 || !res.data) {
     return {
       error: res.statusText,
-      status: res.status,
       value: undefined,
     }
   }
@@ -37,12 +34,10 @@ export const toApiResult = <T>(res: AxiosResponse<T | ErrorResponse>): ApiResult
     if (res.data.Response === 'Error') {
       return {
         error: res.data.Message,
-        status: 400,
         value: undefined,
       }
     } else {
       return {
-        status: 200,
         value: res.data.Data,
         error: undefined,
       }
@@ -50,7 +45,6 @@ export const toApiResult = <T>(res: AxiosResponse<T | ErrorResponse>): ApiResult
   }
 
   return {
-    status: 200,
     value: res.data,
     error: undefined,
   }

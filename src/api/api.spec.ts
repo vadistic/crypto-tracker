@@ -5,7 +5,6 @@ describe('CryptoApi', () => {
     test('ok', async () => {
       const res = await api.singleSymbolPrice({ fsym: 'BTC', tsyms: ['EUR', 'PLN'] })
 
-      expect(res.status).toBe(200)
       expect(res.error).toBeFalsy()
       expect(typeof res.value?.['EUR']).toBe('number')
     })
@@ -13,7 +12,6 @@ describe('CryptoApi', () => {
     test('err', async () => {
       const res = await api.singleSymbolPrice({ fsym: 'unknown', tsyms: ['EUR', 'PLN'] })
 
-      expect(res.status).toBe(400)
       expect(res.value).toBeFalsy()
       expect(typeof res.error).toBe('string')
     })
@@ -23,7 +21,6 @@ describe('CryptoApi', () => {
     test('ok', async () => {
       const res = await api.multipleSymbolPrice({ fsyms: ['BTC'], tsyms: ['EUR', 'PLN'] })
 
-      expect(res.status).toBe(200)
       expect(res.error).toBeFalsy()
       expect(res.value?.['BTC']['EUR']).toBeGreaterThan(0)
     })
@@ -31,7 +28,6 @@ describe('CryptoApi', () => {
     test('err', async () => {
       const res = await api.singleSymbolPrice({ fsym: 'unknown', tsyms: ['EUR', 'PLN'] })
 
-      expect(res.status).toBe(400)
       expect(res.value).toBeFalsy()
       expect(typeof res.error).toBe('string')
     })
@@ -41,7 +37,6 @@ describe('CryptoApi', () => {
     test('ok', async () => {
       const res = await api.availibleCoinList()
 
-      expect(res.status).toBe(200)
       expect(res.error).toBeFalsy()
       expect(res.value?.['BTC'].symbol).toBe('BTC')
     })

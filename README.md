@@ -4,9 +4,9 @@
 
 Track crytocurrencies in real time. Exercise with redux-saga.
 
-API: <https://min-api.cryptocompare.com/>
-SPECIFICATION: [./SPECIFICATION.md](./SPECIFICATION.md)
-DEMO: <https://crypto-tracker-delta.vercel.app>
+- **API**: <https://min-api.cryptocompare.com/>
+- **SPECIFICATION**: [./SPECIFICATION.md](./SPECIFICATION.md)
+- **DEMO**: <https://crypto-tracker-delta.vercel.app>
 
 ## Stack
 

@@ -31,20 +31,21 @@ DEMO: <https://crypto-tracker-delta.vercel.app>
 
 ## Comments
 
-### build
+### on build
 
 - Wanted to try out vite & esbuild for dev :)
 - For some reason vite does not load .env - so token is in plaintext :(
 
-### ad specification
+### on specification
 
 - Basic/ bare-metal styled-components for practice - some ui lib would be way nicer
 - Fetching all widget data together - it's more efficient
 - Loading spinner only after adding new widget - I do not see point of wall of spinners
 - Refresh every 10 seconds (that's the cache-control on cryptocompare API)
 
-### not perfect
+### on further improvements
 
 - Not sure about redux-saga conventions - so I did it a bit thunk-style
 - Error handling could use some more love
 - Select with `react-select` - it's a lot of work to build custom select
+- Need to learn how to test sagas

@@ -8,7 +8,7 @@ import { StyledForm, StyledFormError, StyledFormLabel, StyledFormRow } from '../
 import { Modal } from '../layout/Modal'
 import { Select } from '../layout/Select'
 
-import { TRADING_CURRENCIES } from './constants'
+import { TRADING_CURRENCIES } from './symbols'
 
 export interface TrackerModalProps extends ConnectedProps<typeof connector> {}
 
@@ -67,7 +67,7 @@ export class TrackerModalBase extends React.Component<TrackerModalProps, Tracker
   }
 
   render() {
-    const { toggleModal } = this.props
+    const { toggleModal, defaultTrading } = this.props
 
     const { errors } = this.state
 
@@ -93,7 +93,7 @@ export class TrackerModalBase extends React.Component<TrackerModalProps, Tracker
               name="trading"
               options={this.selectTradingOptions}
               search={true}
-              defaultValue={{ label: 'EUR', value: 'EUR' }}
+              defaultValue={{ label: defaultTrading, value: defaultTrading }}
               placeholder="Select trading currency"
             />
             {errors.trading && <StyledFormError>{errors.trading}</StyledFormError>}
@@ -109,7 +109,7 @@ const mapState = (state: RootState) => {
   return {
     options: state.tracker.options,
     items: state.tracker.items,
-    defaultCurrency: state.tracker.defaultCurrency,
+    defaultTrading: state.tracker.defaultTrading,
   }
 }
 

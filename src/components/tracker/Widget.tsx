@@ -10,13 +10,7 @@ import { Card } from '../layout/Card'
 import { Spinner } from '../layout/Spinner'
 import { StyledHeading, StyledText } from '../layout/Text'
 
-import { getCryptoSymbol, getTradingSymbol } from './constants'
-
-export interface WidgetOwnProps {
-  index: number
-}
-
-export type WidgetProps = WidgetOwnProps & ConnectedProps<typeof connector>
+import { getCryptoSymbol, getTradingSymbol } from './symbols'
 
 export const StyledDiff = styled.div`
   display: flex;
@@ -30,22 +24,14 @@ export const StyledDiff = styled.div`
 `
 
 export const WidgetDiff: React.FC<TrackerItem> = ({ diff, price, trading }) => {
-  if (price === undefined || diff === undefined) {
-    return (
-      <StyledDiff>
-        <StyledText size="md">...</StyledText>
-      </StyledDiff>
-    )
-  }
-
-  // ! cannot format smaller number with numeral.js ?
+  // ! cannot format smaller than 10e-6 with numeral.js ?
   // https://github.com/adamwdraper/Numeral-js/issues/563
   const isChanged = !!diff && Math.abs(diff) >= 0.000001
 
-  if (!isChanged) {
+  if (price === undefined || diff === undefined || !isChanged) {
     return (
       <StyledDiff>
-        <StyledText size="lg">unchanged</StyledText>
+        <StyledText size="lg">—</StyledText>
       </StyledDiff>
     )
   }
@@ -77,26 +63,39 @@ export const WidgetHeading: React.FC<TrackerItem> = ({ crypto }) => {
   )
 }
 
-export const WidgetPrice: React.FC<TrackerItem> = ({ price, trading, error }) => {
-  if (error) return <StyledText size="md">{error}</StyledText>
+export const WidgetBody: React.FC<TrackerItem> = ({ price, trading, error }) => {
+  if (error)
+    return (
+      <StyledText size="lg" align="center">
+        {error}
+      </StyledText>
+    )
 
   if (price === undefined) return <Spinner />
 
   const priceString = numeral(price).format('0,0.00[00000]')
 
   return (
-    <StyledText size="xl">
+    <StyledText size="xl" align="center">
       {priceString} {getTradingSymbol(trading)}
     </StyledText>
   )
 }
+
+// ────────────────────────────────────────────────────────────────────────────────
+
+export interface WidgetOwnProps {
+  index: number
+}
+
+export type WidgetProps = WidgetOwnProps & ConnectedProps<typeof connector>
 
 export class WidgetBase extends React.Component<WidgetProps> {
   render() {
     const { item, close } = this.props
 
     const heading = <WidgetHeading {...item} />
-    const price = <WidgetPrice {...item} />
+    const price = <WidgetBody {...item} />
     const diff = <WidgetDiff {...item} />
 
     return (

@@ -5,11 +5,13 @@ import { Theme } from '../../theme'
 export interface StyledTextProps {
   size?: keyof Theme['text']['size']
   color?: keyof Theme['text']['color']
+  align?: 'left' | 'center'
 }
 
 export const StyledText = styled.p<StyledTextProps>`
   color: ${p => p.theme.text.color[p.color ?? 'base']};
   font-size: ${p => p.theme.text.size[p.size ?? 'md']};
+  text-align: ${p => p.align || 'inital'};
   margin: 0;
 `
 

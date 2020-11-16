@@ -23,7 +23,6 @@ export const CardWrapper = styled.div`
 
 export const CardTop = styled.div`
   flex: 0 1 auto;
-  min-height: ${p => p.theme.spacing.lg};
 
   text-transform: capitalize;
   font-weight: 600;
@@ -41,7 +40,10 @@ export const CardBody = styled.div`
 
 export const CardBottom = styled.div`
   flex: 0 1 auto;
-  min-height: ${p => p.theme.spacing.lg};
+
+  min-height: 32px;
+  display: flex;
+  align-items: center;
 `
 
 export const CardAction = styled.div`

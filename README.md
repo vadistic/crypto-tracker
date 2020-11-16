@@ -2,7 +2,7 @@
 
 ## Overview
 
-Track crytocurrencies and experiment with redux sagas and react class syntax
+Track crytocurrencies in real time. Exercise with redux sagas.
 
 API: <https://min-api.cryptocompare.com/>
 SPECIFICATION: [./SPECIFICATION.md](./SPECIFICATION.md)

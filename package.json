@@ -1,6 +1,6 @@
 {
   "name": "crypto-tracker",
-  "description": "Track crytocurrencies and experiment with redux sagas and react class syntax",
+  "description": "Track crytocurrencies in real time. Exercise with redux sagas.",
   "version": "0.1.0",
   "author": "Jakub Wadas <vadistic@gmail.com>",
   "license": "MIT",

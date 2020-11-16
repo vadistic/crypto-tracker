@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
-import styled from 'styled-components'
 
 import { RootState } from '../../store/store'
 import { trackerSlice } from '../../store/tracker/tracker'
@@ -9,19 +8,19 @@ import { Card } from '../layout/Card'
 import { StyledGrid } from '../layout/Grid'
 import { StyledText } from '../layout/Text'
 
+import { StyledErrorBox } from './Boundary'
 import { TrackerModal } from './Modal'
 import { TrackerWidget } from './Widget'
 
 export interface TrackerProps extends ConnectedProps<typeof connector> {}
 
-const StyledErrorBox = styled.div`
-  text-align: center;
-  margin: 32px;
-`
-
 export class TrackerBase extends React.Component<TrackerProps> {
   renderPlusCard() {
-    const bottom = <StyledText>Add tracker</StyledText>
+    const bottom = (
+      <StyledText size="lg" align="center">
+        add tracker
+      </StyledText>
+    )
 
     return (
       <Card bottom={bottom} key="new">
@@ -45,7 +44,7 @@ export class TrackerBase extends React.Component<TrackerProps> {
         {error && (
           <StyledErrorBox>
             <StyledText color="inverted" size="lg">
-              ERROR: {error}
+              Something went wrong :(. {error}
             </StyledText>
           </StyledErrorBox>
         )}
@@ -62,7 +61,7 @@ const mapState = (state: RootState) => {
   return {
     itemsLength: state.tracker.items.length,
     isModalOpen: state.tracker.isModalOpen,
-    error: state.tracker.error,
+    error: state.tracker.warning,
   }
 }
 

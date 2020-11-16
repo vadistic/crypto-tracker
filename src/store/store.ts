@@ -6,7 +6,7 @@ import {
 } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga'
 
-import { rootSaga } from './root-saga'
+import { rootSaga } from './saga'
 import { trackerSlice } from './tracker/tracker'
 
 export const reducerMap = {

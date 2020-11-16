@@ -1,10 +1,11 @@
-import { call, delay, put, race, select, take } from 'redux-saga/effects'
+import { call, delay, put, select } from 'redux-saga/effects'
 
-import { MultiSymbolPriceResponse, api, ApiResult } from '../../../api'
+import { MultiSymbolPriceResponse, api, ApiResult, ApiResultErr, ApiResultOk } from '../../../api'
 import { RootState } from '../../types'
-import { trackerSlice, TrackerItem } from '../tracker'
+import { trackerSlice } from '../tracker'
+import { TrackerItem } from '../types'
 
-export function* updateMultipleTrackerItems() {
+export function* fetchMultipleTrackerItems() {
   const items: TrackerItem[] = yield select((state: RootState) => state.tracker.items)
 
   if (items.length === 0) return
@@ -19,27 +20,49 @@ export function* updateMultipleTrackerItems() {
     }),
   )
 
-  if (!response.value) {
-    throw new Error(response.error)
+  if (response.value) {
+    yield call(fetchMultipleTrackerItemsOk, response)
   }
 
-  yield put(trackerSlice.actions.updateItems(response.value))
+  if (response.error) {
+    yield call(fetchMultipleTrackerItemsErr, response)
+  }
 }
+
+export function* fetchMultipleTrackerItemsOk(res: ApiResultOk<MultiSymbolPriceResponse>) {
+  const items: TrackerItem[] = yield select((state: RootState) => state.tracker.items)
+  const prevWarning = yield select((state: RootState) => state.tracker.warning)
+
+  const nextItems = items.map(item => {
+    const price: number | undefined = res.value[item.crypto]?.[item.trading]
+
+    const diff = price !== undefined && item.price !== undefined ? price - item.price : item.price
+
+    return {
+      ...item,
+      price,
+      diff,
+      error: price === undefined ? 'No data' : undefined,
+    }
+  })
+
+  yield put(trackerSlice.actions.setItems(nextItems))
+
+  if (prevWarning) {
+    yield put(trackerSlice.actions.clearWarning())
+  }
+}
+
+export function* fetchMultipleTrackerItemsErr(res: ApiResultErr) {
+  yield put(trackerSlice.actions.setWarning(res.error))
+}
+
+// ────────────────────────────────────────────────────────────────────────────────
 
 export function* watchMultipleTrackerItems() {
   while (true) {
-    const prevWarning = yield select((state: RootState) => state.tracker.warning)
+    yield call(fetchMultipleTrackerItems)
 
-    if (prevWarning) {
-      yield put(trackerSlice.actions.clearWarning())
-    }
-
-    try {
-      yield call(updateMultipleTrackerItems)
-    } catch (e) {
-      yield put(trackerSlice.actions.setWarning(e.message))
-    }
-
-    yield race([delay(10000), take(trackerSlice.actions.addItem.type)])
+    yield delay(10000)
   }
 }

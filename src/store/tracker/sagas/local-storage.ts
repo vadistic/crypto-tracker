@@ -1,7 +1,8 @@
 import { call, put, select, takeEvery } from 'redux-saga/effects'
 
 import { RootState } from '../../types'
-import { TrackerItemInfo, trackerSlice, TrackerState } from '../tracker'
+import { trackerSlice, TrackerState } from '../tracker'
+import { TrackerItemInfo } from '../types'
 
 export const STORAGE_TRACKER_ITEMS = 'trackerStorage'
 
@@ -31,9 +32,9 @@ export function* loadLocalStorage() {
 export function* writeLocalStorage() {
   const { items }: TrackerState = yield select((state: RootState) => state.tracker)
 
-  const infos = items.map(({ crypto, trading }): TrackerItemInfo => ({ crypto, trading }))
+  const itemInfos = items.map(({ crypto, trading }): TrackerItemInfo => ({ crypto, trading }))
 
-  localStorage.setItem(STORAGE_TRACKER_ITEMS, JSON.stringify(infos))
+  localStorage.setItem(STORAGE_TRACKER_ITEMS, JSON.stringify(itemInfos))
 }
 
 // eslint-disable-next-line require-yield

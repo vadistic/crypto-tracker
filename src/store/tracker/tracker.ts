@@ -1,39 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { MultiSymbolPriceResponse } from '../../api'
-
-export type TradingCurrency = string
-export type CryptoCurrency = string
-
-export interface TrackerItemInfo {
-  crypto: CryptoCurrency
-  trading: TradingCurrency
-}
-
-export interface TrackerItem extends TrackerItemInfo {
-  price?: number
-  diff?: number
-  error?: string
-}
+import {
+  areTrackerItemsEqual,
+  CryptoCurrency,
+  TrackerItem,
+  TrackerItemInfo,
+  TradingCurrency,
+} from './types'
 
 export interface TrackerState {
   warning?: string
-
-  lastUpdate?: number
   isModalOpen: boolean
-
   options: CryptoCurrency[]
   defaultTrading: TradingCurrency
-
   items: TrackerItem[]
 }
-const areItemsEqual = (a: TrackerItem, b: TrackerItem) =>
-  a.crypto === b.crypto && a.trading === b.trading
 
 const trackerStateInit: TrackerState = {
   warning: undefined,
   isModalOpen: false,
-  lastUpdate: undefined,
   options: [],
   items: [],
   defaultTrading: 'EUR',
@@ -62,46 +47,42 @@ export const trackerSlice = createSlice({
       state.warning = undefined
     },
 
+    toggleModal: (state, action: PayloadAction<boolean | undefined>) => {
+      state.isModalOpen = action.payload ?? !!state.isModalOpen
+    },
+
     setOptions: (state, action: PayloadAction<CryptoCurrency[]>) => {
       state.options = action.payload
+    },
+
+    setItem: (state, { payload: next }: PayloadAction<TrackerItem>) => {
+      const index = state.items.findIndex(el => areTrackerItemsEqual(next, el))
+
+      if (index === -1) return
+
+      state.items[index] = {
+        ...state.items[index],
+        ...next,
+      }
     },
 
     setItems: (state, action: PayloadAction<TrackerItem[]>) => {
       state.items = action.payload
     },
 
-    updateItems: (state, { payload: response }: PayloadAction<MultiSymbolPriceResponse>) => {
-      state.items = state.items.map(item => {
-        const price: number | undefined = response[item.crypto]?.[item.trading]
-
-        const diff =
-          price !== undefined && item.price !== undefined ? price - item.price : item.price
-
-        return {
-          ...item,
-          price,
-          diff,
-          error: price === undefined ? 'No price data :(' : undefined,
-        }
-      })
-
-      state.lastUpdate = new Date().getTime()
-    },
-
     addItem: (state, { payload: nextItem }: PayloadAction<TrackerItemInfo>) => {
+      const prev = state.items.find(item => areTrackerItemsEqual(item, nextItem))
+
       // already present
-      if (state.items.find(item => areItemsEqual(item, nextItem))) return
+      if (prev) return
 
       state.items.push(nextItem)
+
       state.defaultTrading = nextItem.trading
     },
 
     removeItem: (state, { payload: removedItem }: PayloadAction<TrackerItemInfo>) => {
-      state.items = state.items.filter(item => !areItemsEqual(item, removedItem))
-    },
-
-    toggleModal: (state, action: PayloadAction<boolean | undefined>) => {
-      state.isModalOpen = action.payload ?? !!state.isModalOpen
+      state.items = state.items.filter(item => !areTrackerItemsEqual(item, removedItem))
     },
   },
 })

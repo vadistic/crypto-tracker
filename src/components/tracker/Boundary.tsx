@@ -17,10 +17,10 @@ export interface TrackerBoundaryState {
 
 export const StyledErrorBox = styled.div`
   text-align: center;
-  margin: 32px;
+  margin-top: ${p => p.theme.spacing.lg};
 
   button {
-    margin-top: 16px;
+    margin-top: ${p => p.theme.spacing.md};
   }
 `
 
@@ -59,6 +59,7 @@ export class TrackerBoundaryBase extends React.Component<TrackerBoundary, Tracke
       return this.renderError(error)
     }
 
+    // still render content when warning is present
     if (warning) {
       return (
         <>

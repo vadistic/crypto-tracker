@@ -31,24 +31,20 @@ DEMO: <https://crypto-tracker-delta.vercel.app>
 
 ## Comments
 
-### vite
+### build
 
-- Wanted to use vite & esbuild for dev :)
-- Plaintext api token - for some reason vite does not load .env?
+- Wanted to try out vite & esbuild for dev :)
+- For some reason vite does not load .env - so token is in plaintext :(
 
 ### ad specification
 
-- Bare-metal styled-components for training purposes - some ui lib would be nicer
-- Refreshing all widgets together, because it's more efficient
-- Loading state only after adding new widget, I do not see point of wall of spinners
-- Refresh every 10 seconds (because that's best api can do)
+- Basic/ bare-metal styled-components for practice - some ui lib would be way nicer
+- Fetching all widget data together - it's more efficient
+- Loading spinner only after adding new widget - I do not see point of wall of spinners
+- Refresh every 10 seconds (that's the cache-control on cryptocompare API)
 
 ### not perfect
 
-- Not sure about redux-saga conventions (it's kind of custom here)
-- Error handling could probably use some more love
-- Searchable select with `react-select` because it's a lot of work to build custom select
-
-### TODO
-
-- fetch only single item after adding new tracker item
+- Not sure about redux-saga conventions - so I did it a bit thunk-style
+- Error handling could use some more love
+- Select with `react-select` - it's a lot of work to build custom select

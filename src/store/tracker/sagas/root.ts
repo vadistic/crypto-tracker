@@ -4,7 +4,8 @@ import { trackerSlice } from '../tracker'
 
 import { clearLocalStorage, loadLocalStorage, watchLocalStorage } from './local-storage'
 import { watchMultipleTrackerItems } from './multiple-items'
-import { updateTrackerOptions } from './tracker-options'
+import { fetchTrackerOptions } from './options'
+import { watchSingleTrackerItem } from './single-item'
 
 export function* initTracker() {
   yield call(loadLocalStorage)
@@ -17,8 +18,9 @@ export function* resetTracker() {
 
 export function* watchTracker() {
   yield all([
-    updateTrackerOptions(),
+    fetchTrackerOptions(),
     watchMultipleTrackerItems(),
+    watchSingleTrackerItem(),
     watchLocalStorage(),
     takeLatest(trackerSlice.actions.reset, resetTracker),
   ])

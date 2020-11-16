@@ -8,6 +8,7 @@ export interface SelectOption {
 
 export interface SelectProps extends Props<SelectOption> {}
 
+/** ! should be custom made, but I'm too lazy */
 export const Select: React.FC<SelectProps> = props => {
   return <ReactSelect {...props} />
 }

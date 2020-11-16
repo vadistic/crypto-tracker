@@ -3,7 +3,8 @@ import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import styled from 'styled-components'
 
-import { TrackerItem, trackerSlice } from '../../store/tracker/tracker'
+import { trackerSlice } from '../../store/tracker/tracker'
+import { TrackerItem } from '../../store/tracker/types'
 import { RootState } from '../../store/types'
 import { IconArrowDown, IconArrowUp, IconTrash } from '../icons/Icon'
 import { Card } from '../layout/Card'
@@ -109,7 +110,6 @@ export class WidgetBase extends React.Component<WidgetProps> {
 const mapState = (state: RootState, { index }: WidgetOwnProps) => {
   return {
     item: state.tracker.items[index],
-    lastUpdate: state.tracker.lastUpdate,
   }
 }
 

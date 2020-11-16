@@ -1,4 +1,4 @@
-import { CryptoCurrency, TradingCurrency } from '../../store/tracker/tracker'
+import { CryptoCurrency, TradingCurrency } from '../../store/tracker/types'
 
 export const tradingSymbolMap: Record<TradingCurrency, string> = {
   EUR: '€',

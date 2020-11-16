@@ -3,7 +3,7 @@ import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { trackerSlice } from '../tracker'
 
 import { clearLocalStorage, loadLocalStorage, watchLocalStorage } from './local-storage'
-import { watchMultipleTrackerData } from './multiple-tracker-data'
+import { watchMultipleTrackerItems } from './multiple-items'
 import { updateTrackerOptions } from './tracker-options'
 
 export function* initTracker() {
@@ -18,7 +18,7 @@ export function* resetTracker() {
 export function* watchTracker() {
   yield all([
     updateTrackerOptions(),
-    watchMultipleTrackerData(),
+    watchMultipleTrackerItems(),
     watchLocalStorage(),
     takeLatest(trackerSlice.actions.reset, resetTracker),
   ])

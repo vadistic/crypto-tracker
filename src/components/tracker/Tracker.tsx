@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 
-import { RootState } from '../../store/store'
 import { trackerSlice } from '../../store/tracker/tracker'
+import { RootState } from '../../store/types'
 import { IconPlus } from '../icons/Icon'
 import { Card } from '../layout/Card'
 import { StyledGrid } from '../layout/Grid'

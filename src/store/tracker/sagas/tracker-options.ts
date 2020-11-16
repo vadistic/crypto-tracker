@@ -1,8 +1,6 @@
 import { call, put, retry } from 'redux-saga/effects'
 
-import { api } from '../../../api/api'
-import { AvailibleCoinListResponse } from '../../../api/types'
-import { ApiResult } from '../../../api/utils'
+import { api, AvailibleCoinListResponse, ApiResult } from '../../../api'
 import { CryptoCurrency, trackerSlice } from '../tracker'
 
 export function* updateTrackerOptions() {

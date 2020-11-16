@@ -1,12 +1,10 @@
 import { call, delay, put, race, select, take } from 'redux-saga/effects'
 
-import { api } from '../../../api/api'
-import { MultiSymbolPriceResponse } from '../../../api/types'
-import { ApiResult } from '../../../api/utils'
-import { RootState } from '../../store'
+import { MultiSymbolPriceResponse, api, ApiResult } from '../../../api'
+import { RootState } from '../../types'
 import { trackerSlice, TrackerItem } from '../tracker'
 
-export function* updateMultipleTrackerData() {
+export function* updateMultipleTrackerItems() {
   const items: TrackerItem[] = yield select((state: RootState) => state.tracker.items)
 
   if (items.length === 0) return
@@ -28,7 +26,7 @@ export function* updateMultipleTrackerData() {
   yield put(trackerSlice.actions.updateItems(response.value))
 }
 
-export function* watchMultipleTrackerData() {
+export function* watchMultipleTrackerItems() {
   while (true) {
     const prevWarning = yield select((state: RootState) => state.tracker.warning)
 
@@ -37,7 +35,7 @@ export function* watchMultipleTrackerData() {
     }
 
     try {
-      yield call(updateMultipleTrackerData)
+      yield call(updateMultipleTrackerItems)
     } catch (e) {
       yield put(trackerSlice.actions.setWarning(e.message))
     }

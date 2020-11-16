@@ -2,8 +2,8 @@ import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import styled from 'styled-components'
 
-import { RootState } from '../../store/store'
 import { trackerSlice } from '../../store/tracker/tracker'
+import { RootState } from '../../store/types'
 import { StyledInvertedEmptyButton } from '../layout/Button'
 import { StyledText } from '../layout/Text'
 

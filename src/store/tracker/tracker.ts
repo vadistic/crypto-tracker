@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { MultiSymbolPriceResponse } from '../../api/types'
+import { MultiSymbolPriceResponse } from '../../api'
 
 export type TradingCurrency = string
 export type CryptoCurrency = string

@@ -1,8 +1,8 @@
 import React, { FormEvent } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 
-import { RootState } from '../../store/store'
 import { trackerSlice } from '../../store/tracker/tracker'
+import { RootState } from '../../store/types'
 import { StyledButton } from '../layout/Button'
 import { StyledForm, StyledFormError, StyledFormLabel, StyledFormRow } from '../layout/Form'
 import { Modal } from '../layout/Modal'

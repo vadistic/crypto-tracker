@@ -1,6 +1,6 @@
 import { call, put, select, takeEvery } from 'redux-saga/effects'
 
-import { RootState } from '../../store'
+import { RootState } from '../../types'
 import { TrackerItemInfo, trackerSlice, TrackerState } from '../tracker'
 
 export const STORAGE_TRACKER_ITEMS = 'trackerStorage'

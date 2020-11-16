@@ -1,12 +1,7 @@
-import {
-  combineReducers,
-  configureStore,
-  ActionFromReducersMapObject,
-  StateFromReducersMapObject,
-} from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga'
 
-import { rootSaga } from './saga'
+import { rootSaga } from './sagas'
 import { trackerSlice } from './tracker/tracker'
 
 export const reducerMap = {
@@ -14,9 +9,6 @@ export const reducerMap = {
 }
 
 const rootReducer = combineReducers(reducerMap)
-
-export type RootState = StateFromReducersMapObject<typeof reducerMap>
-export type ActionUnion = ActionFromReducersMapObject<typeof reducerMap>
 
 export const sagas = createSagaMiddleware()
 

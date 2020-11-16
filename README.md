@@ -48,3 +48,7 @@ DEMO: <https://crypto-tracker-delta.vercel.app>
 - Not sure about redux-saga conventions (it's kind of custom here)
 - Error handling could probably use some more love
 - Searchable select with `react-select` because it's a lot of work to build custom select
+
+### TODO
+
+- fetch only single item after adding new tracker item

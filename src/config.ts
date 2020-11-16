@@ -1,0 +1,3 @@
+export const CRYTPO_APIKEY =
+  process.env.VITE_APP_CRYPTO_APIKEY ??
+  'a88976ab96a8435a8ba9aa9372e726b7664b82e53e1dd103f9a049e469bc36ff'

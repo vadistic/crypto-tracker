@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "@vadistic/eslint-config",
+    "@vadistic/eslint-config/react",
+    "@vadistic/eslint-config/prettier"
+  ],
+
+  "root": true
+}

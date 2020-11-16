@@ -1,13 +1,14 @@
 import { retry } from 'redux-saga/effects'
 
-import { ApiResult, ApiResultErr } from '../api'
+import { ApiResult, ApiResultErr, ApiResultOk } from '../api'
 
 /**
  * helper to abstract api call retry in case of error
  */
 export function* callApiWithRetry<T>(fn: () => Promise<ApiResult<T>>) {
   try {
-    return retry(3, 250, unwrapResultError(fn))
+    const response: ApiResultOk<T> = yield retry(3, 250, unwrapResultError(fn))
+    return response
   } catch (e) {
     const errRes: ApiResultErr = { error: e.message, value: undefined }
 

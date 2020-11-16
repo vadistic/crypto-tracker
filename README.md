@@ -2,7 +2,7 @@
 
 ## Overview
 
-Track crytocurrencies in real time. Exercise with redux sagas.
+Track crytocurrencies in real time. Exercise with redux-saga.
 
 API: <https://min-api.cryptocompare.com/>
 SPECIFICATION: [./SPECIFICATION.md](./SPECIFICATION.md)
@@ -42,6 +42,7 @@ DEMO: <https://crypto-tracker-delta.vercel.app>
 - Fetching all widget data together - it's more efficient
 - Loading spinner only after adding new widget - I do not see point of wall of spinners
 - Refresh every 10 seconds (that's the cache-control on cryptocompare API)
+- Can select currency!
 
 ### on further improvements
 

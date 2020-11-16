@@ -57,8 +57,6 @@ export function* fetchMultipleTrackerItemsErr(res: ApiResultErr) {
   yield put(trackerSlice.actions.setWarning(res.error))
 }
 
-// ────────────────────────────────────────────────────────────────────────────────
-
 export function* watchMultipleTrackerItems() {
   while (true) {
     yield call(fetchMultipleTrackerItems)

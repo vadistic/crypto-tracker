@@ -18,8 +18,6 @@ export interface SuccessResponse<T> {
   Data: T
 }
 
-// ────────────────────────────────────────────────────────────────────────────────
-
 export interface SharedParams {
   /**
    * The name of your application (we recommend you send it)

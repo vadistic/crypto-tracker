@@ -36,6 +36,7 @@ export class TrackerBase extends React.Component<TrackerProps> {
       <TrackerWidget index={i} key={i} />
     ))
 
+    // max 20 trackers!
     const plusCard = itemsLength < 20 && this.renderPlusCard()
 
     return (

@@ -8,8 +8,6 @@ export const isWrappedData = <T>(
   return typeof data === 'object' && typeof (data as any).Response === 'string'
 }
 
-// ────────────────────────────────────────────────────────────────────────────────
-
 export interface ApiResultOk<T> {
   error: undefined
   status: 200

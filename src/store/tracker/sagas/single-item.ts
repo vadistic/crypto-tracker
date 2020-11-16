@@ -51,8 +51,6 @@ export function* fetchSingleTrackerItemErr({ item }: { item: TrackerItem; error:
   )
 }
 
-// ────────────────────────────────────────────────────────────────────────────────
-
 export function* watchSingleTrackerItem() {
   yield takeLeading(trackerSlice.actions.addItem.type, fetchSingleTrackerItem)
 }
